@@ -1,0 +1,9 @@
+{
+  "name": "Sersid/ddd-example",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [],
+  "require": {
+  }
+}
