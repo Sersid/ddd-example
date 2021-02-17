@@ -7,6 +7,6 @@ RUN apt-get update && apt-get install -y wget git unzip  \
     && docker-php-ext-enable xdebug
 
 RUN wget https://getcomposer.org/installer -O - -q \
-    | php -- --install-dir=/bin --filename=composer --quiet
+    | php -- --install-dir=/bin --filename=composer --quiet --version=2.0.9
 
 WORKDIR /var/www
