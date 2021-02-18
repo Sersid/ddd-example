@@ -11,7 +11,7 @@ use App\Kernel\Hydrator;
 class InMemoryProductRepository implements IProductRepository
 {
     /** @var Product[] */
-    private array $arProducts;
+    private static array $arProducts;
     private Hydrator $hydrator;
     private int $id;
 
@@ -19,7 +19,7 @@ class InMemoryProductRepository implements IProductRepository
     {
         $this->hydrator = $hydrator;
         $this->id = 1;
-        $this->arProducts = [
+        self::$arProducts = [
             $hydrator->hydrate(Product::class, [
                 'id' => $this->id++,
                 'code' => 100001,
@@ -41,7 +41,7 @@ class InMemoryProductRepository implements IProductRepository
 
     public function add(Product $product): void
     {
-        $this->arProducts[] = $product;
+        self::$arProducts[] = $product;
         $this->hydrator->setPropertyValue($product, 'id', $this->id++);
     }
 
@@ -53,7 +53,7 @@ class InMemoryProductRepository implements IProductRepository
      */
     public function getById(int $id): Product
     {
-        foreach ($this->arProducts as $product) {
+        foreach (self::$arProducts as $product) {
             if ($product->getId() === $id) {
                 return $product;
             }
@@ -67,9 +67,9 @@ class InMemoryProductRepository implements IProductRepository
 
     public function delete(int $id): void
     {
-        foreach ($this->arProducts as $key => $product) {
+        foreach (self::$arProducts as $key => $product) {
             if ($product->getId() === $id) {
-                unset($this->arProducts[$key]);
+                unset(self::$arProducts[$key]);
             }
         }
     }
