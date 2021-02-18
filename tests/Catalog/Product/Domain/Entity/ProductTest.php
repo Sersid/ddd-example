@@ -8,16 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public function additionProvider(): array
-    {
-        return [
-            [100001, 'Product name #1', 'Product brand #1', 10, null],
-            [100002, 'Product name #2', 'Product brand #2', 20, null],
-            [100003, 'Product name #3', 'Product brand #3', 30, null],
-            [100003, 'Product name #1', 'Product brand #4', 40, 'Product description #4'],
-        ];
-    }
-
     /**
      * @dataProvider additionProvider
      *
@@ -36,5 +26,15 @@ class ProductTest extends TestCase
         $this->assertSame($brand, $product->getBrand());
         $this->assertSame($price, $product->getPrice());
         $this->assertSame($description, $product->getDescription());
+    }
+
+    public function additionProvider(): array
+    {
+        return [
+            [100001, 'Product name #1', 'Product brand #1', 10, null],
+            [100002, 'Product name #2', 'Product brand #2', 20, null],
+            [100003, 'Product name #3', 'Product brand #3', 30, null],
+            [100003, 'Product name #1', 'Product brand #4', 40, 'Product description #4'],
+        ];
     }
 }
