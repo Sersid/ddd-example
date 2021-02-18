@@ -7,3 +7,5 @@ bash:
 	docker-compose exec php-fpm bash
 perm:
 	sudo chown ${USER}:${USER} ./* -R
+run-test:
+	docker-compose exec php-fpm vendor/bin/phpunit
