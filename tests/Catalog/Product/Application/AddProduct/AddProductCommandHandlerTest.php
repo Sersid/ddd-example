@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Catalog\Application\AddProduct;
+namespace Tests\Catalog\Product\Application\AddProduct;
 
 use App\Catalog\Product\Application\AddProduct\AddProductCommand;
 use App\Catalog\Product\Application\AddProduct\AddProductCommandHandler;
