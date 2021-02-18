@@ -5,6 +5,7 @@ namespace Tests\Catalog\Product\Application\DeleteProduct;
 
 use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommand;
 use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommandHandler;
+use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Exception\ProductNotFound;
 use Tests\TestCase;
@@ -22,6 +23,6 @@ class DeleteProductCommandHandlerTest extends TestCase
 
         $this->expectException(ProductNotFound::class);
         $productRepository = $container->get(IProductRepository::class);
-        $productRepository->getById($command->id);
+        $productRepository->getById(new Id($command->id));
     }
 }

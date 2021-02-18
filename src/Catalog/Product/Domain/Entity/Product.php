@@ -73,6 +73,6 @@ class Product
 
     public function isFurniture(): bool
     {
-        return $this->code > 980000;
+        return $this->code->isFurniture();
     }
 }
