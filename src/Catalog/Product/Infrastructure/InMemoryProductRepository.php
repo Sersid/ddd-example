@@ -64,4 +64,13 @@ class InMemoryProductRepository implements IProductRepository
     public function update(Product $product): void
     {
     }
+
+    public function delete(int $id): void
+    {
+        foreach ($this->arProducts as $key => $product) {
+            if ($product->getId() === $id) {
+                unset($this->arProducts[$key]);
+            }
+        }
+    }
 }
