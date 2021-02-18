@@ -24,11 +24,11 @@ class AddProductCommandHandlerTest extends TestCase
 
         $product = $handler->getProduct();
 
-        $this->assertLessThan($product->getId(), 0);
-        $this->assertSame($product->getCode(), $command->code);
-        $this->assertSame($product->getName(), $command->name);
-        $this->assertSame($product->getPrice(), $command->price);
-        $this->assertSame($product->getBrand(), $command->brand);
-        $this->assertSame($product->getDescription(), $command->description);
+        $this->assertLessThan($product->getId()->getValue(), 0);
+        $this->assertSame($product->getCode()->getValue(), $command->code);
+        $this->assertSame($product->getName()->getValue(), $command->name);
+        $this->assertSame($product->getPrice()->getValue(), $command->price);
+        $this->assertSame($product->getBrand()->getValue(), $command->brand);
+        $this->assertSame($product->getDescription()->getValue(), $command->description);
     }
 }

@@ -3,25 +3,19 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
+use App\Kernel\Domain\Entity\IntValueObject;
 use Webmozart\Assert\Assert;
 
-class Code
+class Code extends IntValueObject
 {
-    private int $value;
-
     public function __construct(int $value)
     {
         Assert::range($value, 100000, 999999);
-        $this->value = $value;
+        parent::__construct($value);
     }
 
-    public function getValue(): int
+    public function isFurniture(): bool
     {
-        return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return (string)$this->value;
+        return $this->value > 980000;
     }
 }

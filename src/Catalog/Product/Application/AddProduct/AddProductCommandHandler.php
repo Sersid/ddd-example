@@ -3,7 +3,12 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\AddProduct;
 
+use App\Catalog\Product\Domain\Entity\Brand;
+use App\Catalog\Product\Domain\Entity\Code;
+use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Entity\Name;
+use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 
 class AddProductCommandHandler
@@ -18,13 +23,13 @@ class AddProductCommandHandler
 
     public function handle(AddProductCommand $command): void
     {
-        $this->product = new Product(
-            $command->code,
-            $command->name,
-            $command->brand,
-            $command->price,
-            $command->description
-        );
+        $code = new Code($command->code);
+        $name = new Name($command->name);
+        $brand = new Brand($command->brand);
+        $price = new Price($command->price);
+        $description = new Description($command->description);
+
+        $this->product = new Product($code, $name, $brand, $price, $description);
         $this->productRepository->add($this->product);
     }
 
@@ -32,8 +37,4 @@ class AddProductCommandHandler
     {
         return $this->product;
     }
-
-    // public function __invoke(AddProductCommand $command)
-    // {
-    // }
 }

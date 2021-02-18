@@ -24,10 +24,10 @@ class UpdateProductCommandHandlerTest extends TestCase
 
         $product = $handler->getProduct();
 
-        $this->assertSame($product->getId(), $command->id);
-        $this->assertSame($product->getName(), $command->name);
-        $this->assertSame($product->getPrice(), $command->price);
-        $this->assertSame($product->getBrand(), $command->brand);
-        $this->assertSame($product->getDescription(), $command->description);
+        $this->assertSame($product->getId()->getValue(), $command->id);
+        $this->assertSame($product->getName()->getValue(), $command->name);
+        $this->assertSame($product->getPrice()->getValue(), $command->price);
+        $this->assertSame($product->getBrand()->getValue(), $command->brand);
+        $this->assertSame($product->getDescription()->getValue(), $command->description);
     }
 }

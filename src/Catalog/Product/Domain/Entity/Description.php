@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
+use App\Kernel\Domain\Entity\ValueObject;
 use Webmozart\Assert\Assert;
 
-class Description
+class Description extends ValueObject
 {
     private ?string $value;
 
@@ -19,13 +20,8 @@ class Description
         $this->value = $value;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return (string)$this->value;
     }
 }
