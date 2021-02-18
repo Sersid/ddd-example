@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Catalog\Application\UpdateProduct;
+namespace Tests\Catalog\Product\Application\UpdateProduct;
 
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
