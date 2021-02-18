@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
+use Webmozart\Assert\Assert;
+
 class Product
 {
     private int $id;
@@ -14,6 +16,23 @@ class Product
 
     public function __construct(int $code, string $name, string $brand, float $price, ?string $description)
     {
+        Assert::range($code, 100000, 999999);
+        
+        $name = trim($name);
+        Assert::notEmpty($name);
+        Assert::maxLength($name, 255);
+
+        $brand = trim($brand);
+        Assert::notEmpty($brand);
+        Assert::maxLength($brand, 255);
+        
+        Assert::greaterThan($price, 0);
+
+        if (!is_null($description)) {
+            $description = trim($description);
+            Assert::notEmpty($description);
+        }
+        
         $this->code = $code;
         $this->name = $name;
         $this->brand = $brand;
@@ -38,6 +57,9 @@ class Product
 
     public function setName(string $name): void
     {
+        $name = trim($name);
+        Assert::notEmpty($name);
+        Assert::maxLength($name, 255);
         $this->name = $name;
     }
 
@@ -48,6 +70,9 @@ class Product
 
     public function setBrand(string $brand): void
     {
+        $brand = trim($brand);
+        Assert::notEmpty($brand);
+        Assert::maxLength($brand, 255);
         $this->brand = $brand;
     }
 
@@ -58,6 +83,7 @@ class Product
 
     public function setPrice(float $price): void
     {
+        Assert::greaterThan($price, 0);
         $this->price = $price;
     }
 
@@ -68,6 +94,15 @@ class Product
 
     public function setDescription(?string $description): void
     {
+        if (!is_null($description)) {
+            $description = trim($description);
+            Assert::notEmpty($description);
+        }
         $this->description = $description;
+    }
+
+    public function isFurniture(): bool
+    {
+        return $this->code > 980000;
     }
 }

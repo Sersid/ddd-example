@@ -6,6 +6,7 @@ namespace App\Catalog\Product\Application\UpdateProduct;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use Webmozart\Assert\Assert;
 
 class UpdateProductCommandHandler
 {
@@ -23,6 +24,7 @@ class UpdateProductCommandHandler
      */
     public function handle(UpdateProductCommand $command): void
     {
+        Assert::greaterThan($command->id, 0);
         $this->product = $this->productRepository->getById($command->id);
         $this->product->setName($command->name);
         $this->product->setBrand($command->brand);
