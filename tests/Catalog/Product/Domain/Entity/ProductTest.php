@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
+use App\Catalog\Product\Domain\Entity\Brand;
+use App\Catalog\Product\Domain\Entity\Code;
+use App\Catalog\Product\Domain\Entity\Description;
+use App\Catalog\Product\Domain\Entity\Name;
+use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 use PHPUnit\Framework\TestCase;
 
@@ -19,6 +24,12 @@ class ProductTest extends TestCase
      */
     public function testCreate(int $code, string $name, string $brand, float $price, ?string $description)
     {
+        $code = new Code($code);
+        $name = new Name($name);
+        $brand = new Brand($brand);
+        $price = new Price($price);
+        $description = new Description($description);
+
         $product = new Product($code, $name, $brand, $price, $description);
 
         $this->assertSame($code, $product->getCode());
