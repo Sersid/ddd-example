@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Application\AddProduct;
+namespace App\Catalog\Product\Application\AddProduct;
 
 class AddProductCommand
 {

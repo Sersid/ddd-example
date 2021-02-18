@@ -12,6 +12,11 @@ abstract class TestCase extends PHPUnit_TestCase
     public function getAppInstance(): App
     {
         $containerBuilder = new ContainerBuilder();
+
+        // Set up repositories
+        $repositories = require __DIR__ . '/app/repositories.php';
+        $repositories($containerBuilder);
+
         $container = $containerBuilder->build();
 
         return new App($container);
