@@ -51,12 +51,18 @@ class ProductTest extends TestCase
 
     public function testUpdate()
     {
-        $product = new Product(123456, 'Old name', 'Old brand', 123, null);
+        $product = new Product(
+            new Code(123456),
+            new Name('Old name'),
+            new Brand('Old brand'),
+            new Price(123),
+            new Description(null)
+        );
 
-        $product->setName($name = 'New name');
-        $product->setBrand($brand = 'New Brand');
-        $product->setPrice($price = 1000.10);
-        $product->setDescription($description = 'New description');
+        $product->setName($name = new Name('New name'));
+        $product->setBrand($brand = new Brand('New Brand'));
+        $product->setPrice($price = new Price(1000.10));
+        $product->setDescription($description = new Description('New description'));
 
         $this->assertSame($name, $product->getName());
         $this->assertSame($brand, $product->getBrand());
