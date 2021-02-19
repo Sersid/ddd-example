@@ -14,7 +14,7 @@ abstract class TestCase extends PHPUnit_TestCase
         $containerBuilder = new ContainerBuilder();
 
         // Set up repositories
-        $repositories = require __DIR__ . '/app/repositories.php';
+        $repositories = require __DIR__ . '/config/repositories.php';
         $repositories($containerBuilder);
 
         $container = $containerBuilder->build();
