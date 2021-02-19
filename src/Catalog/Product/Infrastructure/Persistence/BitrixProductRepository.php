@@ -29,4 +29,9 @@ class BitrixProductRepository implements IProductRepository
     {
         // у меня не было желания писать реализацию на Битриксе
     }
+
+    public function delete(int $id): void
+    {
+        // у меня не было желания писать реализацию на Битриксе
+    }
 }
