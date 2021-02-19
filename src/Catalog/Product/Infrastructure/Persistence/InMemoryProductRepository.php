@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Infrastructure;
+namespace App\Catalog\Product\Infrastructure\Persistence;
 
 use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFound;
 use App\Kernel\Hydrator;
+use ReflectionClass;
 
 class InMemoryProductRepository implements IProductRepository
 {
@@ -45,6 +46,10 @@ class InMemoryProductRepository implements IProductRepository
         $this->hydrator->setPropertyValue($product, 'id', $this->id++);
     }
 
+        $reflection = new ReflectionClass($product);
+        $id = $reflection->getProperty('id');
+        $id->setAccessible(true);
+        $id->setValue($product, count(self::$arProducts));
     /**
      * @param int $id
      *
