@@ -37,4 +37,21 @@ class AddProductCommandHandler
     {
         return $this->product;
     }
+
+    /*
+     public function handle(): void
+     {
+        $_POST || $_GET
+     }
+    */
+    /*
+    public function handle(int $code, string $name, string $brand, float $price, ?string $description): void
+    {
+    }
+    */
+    /*
+    public function handle(array $arData): void
+    {
+    }
+    */
 }
