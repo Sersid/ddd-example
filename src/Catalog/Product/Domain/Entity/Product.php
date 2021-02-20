@@ -36,7 +36,7 @@ class Product
         return $this->name;
     }
 
-    public function setName(Name $name): void
+    public function rename(Name $name): void
     {
         $this->name = $name;
     }
@@ -46,7 +46,7 @@ class Product
         return $this->brand;
     }
 
-    public function setBrand(Brand $brand): void
+    public function changeBrand(Brand $brand): void
     {
         $this->brand = $brand;
     }
@@ -56,7 +56,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(Price $price): void
+    public function changePrice(Price $price): void
     {
         $this->price = $price;
     }
@@ -66,7 +66,7 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(Description $description): void
+    public function changeDescription(Description $description): void
     {
         $this->description = $description;
     }

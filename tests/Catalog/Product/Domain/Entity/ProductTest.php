@@ -59,10 +59,10 @@ class ProductTest extends TestCase
             new Description(null)
         );
 
-        $product->setName($name = new Name('New name'));
-        $product->setBrand($brand = new Brand('New Brand'));
-        $product->setPrice($price = new Price(1000.10));
-        $product->setDescription($description = new Description('New description'));
+        $product->rename($name = new Name('New name'));
+        $product->changeBrand($brand = new Brand('New Brand'));
+        $product->changePrice($price = new Price(1000.10));
+        $product->changeDescription($description = new Description('New description'));
 
         $this->assertSame($name, $product->getName());
         $this->assertSame($brand, $product->getBrand());

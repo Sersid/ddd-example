@@ -35,11 +35,11 @@ class UpdateProductCommandHandler
         $description = new Description($command->description);
 
         $this->product = $this->productRepository->getById($id);
-        $this->product->setName($name);
-        $this->product->setBrand($brand);
-        $this->product->setPrice($price);
-        $this->product->setDescription($description);
-        
+        $this->product->rename($name);
+        $this->product->changeBrand($brand);
+        $this->product->changePrice($price);
+        $this->product->changeDescription($description);
+
         $this->productRepository->update($this->product);
     }
 
