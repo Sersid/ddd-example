@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Kernel\Domain\Entity\MoneyValueObject;
+use App\Kernel\Domain\Entity\FloatValueObject;
 use Webmozart\Assert\Assert;
 
-class Price extends MoneyValueObject
+class Price extends FloatValueObject
 {
     public function __construct(float $value)
     {
