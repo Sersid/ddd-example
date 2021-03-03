@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Kernel\Domain\Entity;
+namespace App\Kernel\Domain\Entity\ValueObject\Money;
+
+use App\Kernel\Domain\Entity\ValueObject\Float\FloatValueObject;
 
 abstract class MoneyValueObject extends FloatValueObject
 {

@@ -40,4 +40,16 @@ class NameTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Name($value);
     }
+    
+    public function testStringFunction()
+    {
+        $value = '<p>Product name</p>';
+        $name = new Name($value);
+        $lowerName = $name->toUpper();
+        $htmlEntitiesName = $lowerName->htmlEntities();
+        
+        $this->assertSame($name->getValue(), $value);
+        $this->assertSame($lowerName->getValue(), mb_strtoupper($value));
+        $this->assertSame($htmlEntitiesName->getValue(), htmlentities(mb_strtoupper($value)));
+    }
 }

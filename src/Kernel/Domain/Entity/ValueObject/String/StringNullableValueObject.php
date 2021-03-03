@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Kernel\Domain\Entity;
+namespace App\Kernel\Domain\Entity\ValueObject\String;
 
 abstract class StringNullableValueObject extends BaseStringValueObject
 {

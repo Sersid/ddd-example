@@ -40,4 +40,11 @@ class BrandTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Brand($value);
     }
+    
+    public function testTrim()
+    {
+        $value = '  Brand name ';
+        $brand = new Brand($value);
+        $this->assertSame($brand->getValue(), trim($value));
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Kernel\Domain\Entity;
+namespace App\Kernel\Domain\Entity\ValueObject;
 
 abstract class ValueObject
 {
@@ -35,5 +35,20 @@ abstract class ValueObject
     public function isNotEmpty(): bool
     {
         return $this->isNotNull() && !empty($this->getValue());
+    }
+
+    /**
+     * @param callable $handle
+     *
+     * @return static
+     */
+    protected function handler(callable $handle): self
+    {
+        $clone = clone $this;
+        if ($clone->isNotNull()) {
+            $handle($clone);
+        }
+
+        return $clone;
     }
 }
