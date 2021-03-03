@@ -12,8 +12,28 @@ abstract class ValueObject
         return (string)$this->getValue();
     }
 
-    public function equalTo(self $other): bool
+    public function isEqual(self $other): bool
     {
         return $this->getValue() === $other->getValue();
+    }
+
+    public function isNull(): bool
+    {
+        return is_null($this->getValue());
+    }
+
+    public function isNotNull(): bool
+    {
+        return !$this->isNull();
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->isNull() || empty($this->getValue());
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return $this->isNotNull() && !empty($this->getValue());
     }
 }

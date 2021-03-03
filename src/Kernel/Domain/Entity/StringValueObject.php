@@ -17,8 +17,33 @@ abstract class StringValueObject extends ValueObject
         return $this->value;
     }
 
-    public function toUpper(): string
+    public function toUpper(): self
     {
-        return mb_strtoupper($this->value);
+        $clone = clone $this;
+        if ($clone->isNotNull()) {
+            $clone->value = mb_strtoupper($clone->value);
+        }
+
+        return $clone;
+    }
+
+    public function trim(): self
+    {
+        $clone = clone $this;
+        if ($clone->isNotNull()) {
+            $clone->value = trim($clone->value);
+        }
+
+        return $clone;
+    }
+
+    public function htmlEntities(): self
+    {
+        $clone = clone $this;
+        if ($clone->isNotNull()) {
+            $clone->value = htmlentities($clone->value);
+        }
+
+        return $clone;
     }
 }
