@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Kernel\Domain\Entity;
 
-abstract class StringValueObject extends ValueObject
+abstract class StringValueObject extends BaseStringValueObject
 {
     protected string $value;
 
@@ -15,35 +15,5 @@ abstract class StringValueObject extends ValueObject
     public function getValue(): string
     {
         return $this->value;
-    }
-
-    public function toUpper(): self
-    {
-        $clone = clone $this;
-        if ($clone->isNotNull()) {
-            $clone->value = mb_strtoupper($clone->value);
-        }
-
-        return $clone;
-    }
-
-    public function trim(): self
-    {
-        $clone = clone $this;
-        if ($clone->isNotNull()) {
-            $clone->value = trim($clone->value);
-        }
-
-        return $clone;
-    }
-
-    public function htmlEntities(): self
-    {
-        $clone = clone $this;
-        if ($clone->isNotNull()) {
-            $clone->value = htmlentities($clone->value);
-        }
-
-        return $clone;
     }
 }
