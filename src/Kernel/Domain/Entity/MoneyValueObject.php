@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Kernel\Domain\Entity;
 
-class MoneyValueObject extends FloatValueObject
+abstract class MoneyValueObject extends FloatValueObject
 {
     private int $whole;
     private int $tenths;
