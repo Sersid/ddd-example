@@ -40,4 +40,13 @@ class DescriptionTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Description($value);
     }
+    
+    public function testHtmlEntities()
+    {
+        $this->assertNull((new Description(null))->htmlEntities()->getValue());
+
+        $value = '<p>Product description</p>';
+        $description = (new Description($value))->htmlEntities();
+        $this->assertSame($description->getValue(), htmlentities($value));
+    }
 }

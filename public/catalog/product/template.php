@@ -11,7 +11,7 @@ use App\Catalog\Product\Domain\Entity\Product;
         <p>Наименование: <?= $product->getName() ?></p>
         <p>Цена: <?= $product->getPrice()->getFormatted() ?></p>
         <?php if ($product->getDescription()->isNotEmpty()) { ?>
-        <p>Описание: <?= $product->getDescription() ?></p>
+        <p>Описание: <?= $product->getDescription()->htmlEntities() ?></p>
         <?php } ?>
     </div>
 </div>
