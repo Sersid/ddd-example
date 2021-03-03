@@ -16,4 +16,9 @@ abstract class StringValueObject extends ValueObject
     {
         return $this->value;
     }
+
+    public function toUpper(): string
+    {
+        return mb_strtoupper($this->value);
+    }
 }
