@@ -40,32 +40,4 @@ class PriceTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Price($value);
     }
-
-    public function formattedAdditionProvider(): array
-    {
-        return [
-            [1, '1'],
-            [1333444, '1 333 444'],
-            [1.1, '1.10'],
-            [10.1, '10.10'],
-            [100.15, '100.15'],
-            [1000.15, '1 000.15'],
-            [1000.15123, '1 000.15'],
-            [1000.15999, '1 000.15'],
-            [100500.15999, '100 500.15'],
-            [1234567890.15999, '1 234 567 890.16'],
-        ];
-    }
-
-    /**
-     * @dataProvider formattedAdditionProvider
-     *
-     * @param float  $value
-     * @param string $wait
-     */
-    public function testFormatted(float $value, string $wait)
-    {
-        $price = new Price($value);
-        $this->assertSame($price->getFormatted(), $wait);
-    }
 }
