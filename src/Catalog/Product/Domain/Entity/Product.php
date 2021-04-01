@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
+use App\Catalog\Product\Domain\Dto\ProductDto;
 use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
 use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
 use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
@@ -21,15 +22,33 @@ class Product implements AggregateRoot
     private Price $price;
     private Description $description;
 
-    public function __construct(Code $code, Name $name, BrandId $brandId, Price $price, Description $description)
+    private function __construct()
     {
-        $this->code = $code;
-        $this->name = $name;
-        $this->brandId = $brandId;
-        $this->price = $price;
-        $this->description = $description;
+    }
+
+    public static function create(Code $code, Name $name, BrandId $brandId, Price $price, Description $description)
+    {
+        $product = new self();
+        $product->code = $code;
+        $product->name = $name;
+        $product->brandId = $brandId;
+        $product->price = $price;
+        $product->description = $description;
         
-        $this->recordEvent(new ProductCreatedEvent($this));
+        $product->recordEvent(new ProductCreatedEvent($product));
+    }
+
+    public static function load(ProductDto $dto): self
+    {
+        $product = new self();
+        $product->id = new Id($dto->id);
+        $product->code = new Code($dto->code);
+        $product->name = new Name($dto->name);
+        $product->brandId = new BrandId($dto->brandId);
+        $product->price = new Price($dto->price);
+        $product->description = new Description($dto->description);
+
+        return $product;
     }
 
     public function getId(): Id
