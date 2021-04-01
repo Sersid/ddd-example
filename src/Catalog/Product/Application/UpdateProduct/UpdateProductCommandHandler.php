@@ -18,6 +18,7 @@ class UpdateProductCommandHandler
     private IProductRepository $productRepository;
     private Product $product;
     private EventDispatcher $eventDispatcher;
+    private array $events;
 
     public function __construct(IProductRepository $productRepository, EventDispatcher $eventDispatcher)
     {
@@ -45,11 +46,17 @@ class UpdateProductCommandHandler
 
         $this->productRepository->update($this->product);
 
-        $this->eventDispatcher->dispatch($this->product->releaseEvents());
+        $this->events = $this->product->releaseEvents();
+        $this->eventDispatcher->dispatch($this->events);
     }
 
     public function getProduct(): Product
     {
         return $this->product;
+    }
+    
+    public function getEvents(): array
+    {
+        return $this->events;
     }
 }

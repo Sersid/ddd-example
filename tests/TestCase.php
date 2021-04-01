@@ -8,7 +8,9 @@ use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Infrastructure\Persistence\InMemoryProductRepository;
 use DI\ContainerBuilder;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use function DI\autowire;
+use function DI\create;
 
 abstract class TestCase extends PHPUnit_TestCase
 {
@@ -16,8 +18,11 @@ abstract class TestCase extends PHPUnit_TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        // Set up repositories
         $containerBuilder->addDefinitions([
+            // Kernel
+            EventDispatcherInterface::class => create(EventDispatcher::class),
+
+            // Set up repositories
             IProductRepository::class => autowire(InMemoryProductRepository::class),
         ]);
 

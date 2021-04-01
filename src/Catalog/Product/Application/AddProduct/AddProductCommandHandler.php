@@ -17,6 +17,7 @@ class AddProductCommandHandler
     private IProductRepository $productRepository;
     private Product $product;
     private EventDispatcher $eventDispatcher;
+    private array $events;
 
     public function __construct(IProductRepository $productRepository, EventDispatcher $eventDispatcher)
     {
@@ -32,15 +33,21 @@ class AddProductCommandHandler
         $price = new Price($command->price);
         $description = new Description($command->description);
 
-        $this->product = new Product($code, $name, $brandId, $price, $description);
+        $this->product = Product::create($code, $name, $brandId, $price, $description);
         $this->productRepository->add($this->product);
 
-        $this->eventDispatcher->dispatch($this->product->releaseEvents());
+        $this->events = $this->product->releaseEvents();
+        $this->eventDispatcher->dispatch($this->events);
     }
 
     public function getProduct(): Product
     {
         return $this->product;
+    }
+
+    public function getEvents(): array
+    {
+        return $this->events;
     }
 
     /*
