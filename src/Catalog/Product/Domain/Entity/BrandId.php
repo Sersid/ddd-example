@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Kernel\Domain\Entity\ValueObject\Integer\IntNullableValueObject;
+use App\Kernel\Domain\Entity\ValueObject\Id\IdNullableValueObject;
 
-class BrandId extends IntNullableValueObject
+class BrandId extends IdNullableValueObject
 {
 }

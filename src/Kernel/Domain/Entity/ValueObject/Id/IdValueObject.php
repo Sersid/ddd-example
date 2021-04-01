@@ -6,7 +6,7 @@ namespace App\Kernel\Domain\Entity\ValueObject\Id;
 use App\Kernel\Domain\Entity\ValueObject\Integer\IntValueObject;
 use Webmozart\Assert\Assert;
 
-class IdValueObject extends IntValueObject
+abstract class IdValueObject extends IntValueObject
 {
     public function __construct(int $value)
     {
