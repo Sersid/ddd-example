@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
-use App\Catalog\Product\Domain\Entity\Description;
+use App\Catalog\Product\Domain\Entity\ProductDescription;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class DescriptionTest extends TestCase
+class ProductDescriptionTest extends TestCase
 {
     public function validAdditionProvider(): array
     {
@@ -21,7 +21,7 @@ class DescriptionTest extends TestCase
      */
     public function testValid($value)
     {
-        $code = new Description($value);
+        $code = new ProductDescription($value);
         $this->assertSame($code->getValue(), is_null($value) ? null : trim($value));
     }
 
@@ -38,7 +38,7 @@ class DescriptionTest extends TestCase
     public function testInvalid($value)
     {
         $this->expectException(InvalidArgumentException::class);
-        new Description($value);
+        new ProductDescription($value);
     }
     
     public function testHtmlEntities()

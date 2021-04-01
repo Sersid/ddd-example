@@ -5,6 +5,6 @@ namespace App\Catalog\Brand\Domain\Entity;
 
 use App\Kernel\Domain\Entity\ValueObject\String\StringNullableValueObject;
 
-class Description extends StringNullableValueObject
+class BrandDescription extends StringNullableValueObject
 {
 }

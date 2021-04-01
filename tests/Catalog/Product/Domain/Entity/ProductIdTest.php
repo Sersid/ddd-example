@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
-use App\Catalog\Product\Domain\Entity\Id;
+use App\Catalog\Product\Domain\Entity\ProductId;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class IdTest extends TestCase
+class ProductIdTest extends TestCase
 {
     public function validAdditionProvider(): array
     {
@@ -21,7 +21,7 @@ class IdTest extends TestCase
      */
     public function testValid(int $value)
     {
-        $code = new Id($value);
+        $code = new ProductId($value);
         $this->assertSame($code->getValue(), $value);
     }
 
@@ -38,6 +38,6 @@ class IdTest extends TestCase
     public function testInvalid(int $value)
     {
         $this->expectException(InvalidArgumentException::class);
-        new Id($value);
+        $id = new ProductId($value);
     }
 }

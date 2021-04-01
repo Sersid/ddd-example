@@ -7,15 +7,15 @@ use App\Catalog\Brand\Domain\Dto\BrandDto;
 
 class Brand
 {
-    private Id $id;
-    private Name $name;
-    private Description $description;
+    private BrandId $id;
+    private BrandName $name;
+    private BrandDescription $description;
 
     private function __construct()
     {
     }
 
-    public static function create(Id $id, Name $name, Description $description): self
+    public static function create(BrandId $id, BrandName $name, BrandDescription $description): self
     {
         $brand = new self();
         $brand->id = $id;
@@ -28,24 +28,24 @@ class Brand
     public static function restore(BrandDto $dto): self
     {
         $brand = new self();
-        $brand->id = new Id($dto->id);
-        $brand->name = new Name($dto->name);
-        $brand->description = new Description($dto->description);
+        $brand->id = new BrandId($dto->id);
+        $brand->name = new BrandName($dto->name);
+        $brand->description = new BrandDescription($dto->description);
 
         return $brand;
     }
 
-    public function getId(): Id
+    public function getId(): BrandId
     {
         return $this->id;
     }
 
-    public function getName(): Name
+    public function getName(): BrandName
     {
         return $this->name;
     }
 
-    public function getDescription(): Description
+    public function getDescription(): BrandDescription
     {
         return $this->description;
     }

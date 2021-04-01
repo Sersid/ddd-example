@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\UpdateProduct;
 
-use App\Catalog\Product\Domain\Entity\BrandId;
-use App\Catalog\Product\Domain\Entity\Description;
-use App\Catalog\Product\Domain\Entity\Id;
+use App\Catalog\Product\Domain\Entity\ProductBrandId;
+use App\Catalog\Product\Domain\Entity\ProductDescription;
+use App\Catalog\Product\Domain\Entity\ProductId;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
-use App\Catalog\Product\Domain\Entity\Name;
-use App\Catalog\Product\Domain\Entity\Price;
+use App\Catalog\Product\Domain\Entity\ProductName;
+use App\Catalog\Product\Domain\Entity\ProductPrice;
 use App\Catalog\Product\Domain\Entity\Product;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use App\Kernel\Domain\Event\EventDispatcher;
 
 class UpdateProductCommandHandler
@@ -28,15 +28,16 @@ class UpdateProductCommandHandler
 
     /**
      * @param UpdateProductCommand $command
-     * @throws ProductNotFound
+     *
+     * @throws ProductNotFoundException
      */
     public function handle(UpdateProductCommand $command): void
     {
-        $id = new Id($command->id);
-        $name = new Name($command->name);
-        $brandId = new BrandId($command->brandId);
-        $price = new Price($command->price);
-        $description = new Description($command->description);
+        $id = new ProductId($command->id);
+        $name = new ProductName($command->name);
+        $brandId = new ProductBrandId($command->brandId);
+        $price = new ProductPrice($command->price);
+        $description = new ProductDescription($command->description);
 
         $this->product = $this->productRepository->getById($id);
         $this->product->rename($name);
@@ -54,7 +55,7 @@ class UpdateProductCommandHandler
     {
         return $this->product;
     }
-    
+
     public function getEvents(): array
     {
         return $this->events;
