@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use App\App;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
-use App\Catalog\Product\Infrastructure\Persistence\BitrixProductRepository;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
+use App\Catalog\Product\Infrastructure\Persistence\Bitrix\BitrixProductRepository;
 use DI\ContainerBuilder;
 use function DI\autowire;
 

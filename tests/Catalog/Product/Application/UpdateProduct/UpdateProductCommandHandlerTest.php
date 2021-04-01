@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Application\UpdateProduct;
 
-use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
-use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
+use App\Catalog\Product\Application\Command\UpdateProduct\UpdateProductCommand;
+use App\Catalog\Product\Application\Command\UpdateProduct\UpdateProductCommandHandler;
 use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
 use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
 use App\Catalog\Product\Domain\Event\ProductRenamedEvent;

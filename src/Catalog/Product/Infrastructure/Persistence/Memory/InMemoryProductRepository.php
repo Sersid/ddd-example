@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Infrastructure\Persistence;
+namespace App\Catalog\Product\Infrastructure\Persistence\Memory;
 
 use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Code;
 use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Id;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;

@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Domain\Entity;
+namespace App\Catalog\Product\Domain\Repository;
 
+use App\Catalog\Product\Domain\Entity\Id;
+use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 interface IProductRepository

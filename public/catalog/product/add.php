@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use App\Catalog\Product\Application\AddProduct\AddProductCommand;
-use App\Catalog\Product\Application\AddProduct\AddProductCommandHandler;
+use App\Catalog\Product\Application\Command\AddProduct\AddProductCommand;
+use App\Catalog\Product\Application\Command\AddProduct\AddProductCommandHandler;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 

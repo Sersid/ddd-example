@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Application\DeleteProduct;
 
-use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommand;
-use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommandHandler;
+use App\Catalog\Product\Application\Command\DeleteProduct\DeleteProductCommand;
+use App\Catalog\Product\Application\Command\DeleteProduct\DeleteProductCommandHandler;
 use App\Catalog\Product\Domain\Entity\Id;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
 use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use Tests\TestCase;
 
