@@ -5,6 +5,6 @@ namespace App\Catalog\Product\Domain\Exception;
 
 use DomainException;
 
-class ProductNotFound extends DomainException
+class ProductNotFoundException extends DomainException
 {
 }
