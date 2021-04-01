@@ -3,15 +3,14 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Event;
 
-use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 
 class ProductChangedPriceEvent
 {
     private Product $product;
-    private Price $oldPrice;
+    private float $oldPrice;
 
-    public function __construct(Product $product, Price $oldPrice)
+    public function __construct(Product $product, float $oldPrice)
     {
         $this->product = $product;
         $this->oldPrice = $oldPrice;
@@ -22,7 +21,7 @@ class ProductChangedPriceEvent
         return $this->product;
     }
 
-    public function getOldPrice(): Price
+    public function getOldPrice(): float
     {
         return $this->oldPrice;
     }

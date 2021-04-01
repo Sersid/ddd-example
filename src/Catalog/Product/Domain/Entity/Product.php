@@ -77,7 +77,7 @@ class Product implements AggregateRoot
     public function rename(Name $name): void
     {
         if ($this->name->isNotEqual($name)) {
-            $this->recordEvent(new ProductRenamedEvent($this, $this->name));
+            $this->recordEvent(new ProductRenamedEvent($this, $this->name->getValue()));
             $this->name = $name;
         }
     }
@@ -90,7 +90,7 @@ class Product implements AggregateRoot
     public function changeBrandId(BrandId $brand): void
     {
         if ($this->brandId->isNotEqual($brand)) {
-            $this->recordEvent(new ProductChangedBrandIdEvent($this, $this->brandId));
+            $this->recordEvent(new ProductChangedBrandIdEvent($this, $this->brandId->getValue()));
             $this->brandId = $brand;
         }
     }
@@ -103,7 +103,7 @@ class Product implements AggregateRoot
     public function changePrice(Price $price): void
     {
         if ($this->price->isNotEqual($price)) {
-            $this->recordEvent(new ProductChangedPriceEvent($this, $this->price));
+            $this->recordEvent(new ProductChangedPriceEvent($this, $this->price->getValue()));
             $this->price = $price;
         }
     }
