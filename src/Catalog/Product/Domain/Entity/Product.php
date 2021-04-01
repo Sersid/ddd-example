@@ -38,7 +38,8 @@ class Product implements AggregateRoot
         $product->recordEvent(new ProductCreatedEvent($product));
     }
 
-    public static function load(ProductDto $dto): self
+    // load, open, fromDto and etc
+    public static function restore(ProductDto $dto): self
     {
         $product = new self();
         $product->id = new Id($dto->id);
