@@ -7,7 +7,7 @@ use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommand;
 use App\Catalog\Product\Application\DeleteProduct\DeleteProductCommandHandler;
 use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use Tests\TestCase;
 
 class DeleteProductCommandHandlerTest extends TestCase
@@ -21,7 +21,7 @@ class DeleteProductCommandHandlerTest extends TestCase
         $handler = $container->get(DeleteProductCommandHandler::class);
         $handler->handle($command);
 
-        $this->expectException(ProductNotFound::class);
+        $this->expectException(ProductNotFoundException::class);
         $productRepository = $container->get(IProductRepository::class);
         $productRepository->getById(new Id($command->id));
     }

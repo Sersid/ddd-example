@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
@@ -20,7 +20,7 @@ if (!empty($_POST)) {
         $handler->handle($command);
     } catch (InvalidArgumentException $e) {
         echo $e->getMessage();
-    } catch (ProductNotFound $e) {
+    } catch (ProductNotFoundException $e) {
         echo "Товар не найден";
     } catch (\Throwable $e) {
         // не надо так :(
