@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Kernel\Domain\Entity\StringValueObject;
+use App\Kernel\Domain\Entity\ValueObject\String\StringValueObject;
 use Webmozart\Assert\Assert;
 
 class Name extends StringValueObject

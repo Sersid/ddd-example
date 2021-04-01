@@ -3,25 +3,17 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Kernel\Domain\Entity\ValueObject;
+use App\Kernel\Domain\Entity\ValueObject\String\StringNullableValueObject;
 use Webmozart\Assert\Assert;
 
-class Description extends ValueObject
+class Description extends StringNullableValueObject
 {
-    private ?string $value;
-
     public function __construct(?string $value)
     {
         if (!is_null($value)) {
             $value = trim($value);
             Assert::notEmpty($value);
         }
-
-        $this->value = $value;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
+        parent::__construct($value);
     }
 }

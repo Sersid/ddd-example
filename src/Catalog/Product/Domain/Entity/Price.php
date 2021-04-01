@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Kernel\Domain\Entity\FloatValueObject;
+use App\Kernel\Domain\Entity\ValueObject\Float\FloatValueObject;
 use Webmozart\Assert\Assert;
 
 class Price extends FloatValueObject

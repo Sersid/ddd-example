@@ -38,6 +38,10 @@ class Product
 
     public function rename(Name $name): void
     {
+        if ($this->name->equalTo($name)) {
+            return;
+        }
+
         $this->name = $name;
     }
 
@@ -48,6 +52,10 @@ class Product
 
     public function changeBrand(Brand $brand): void
     {
+        if ($this->brand->equalTo($brand)) {
+            return;
+        }
+
         $this->brand = $brand;
     }
 
@@ -58,6 +66,10 @@ class Product
 
     public function changePrice(Price $price): void
     {
+        if ($this->price->equalTo($price)) {
+            return;
+        }
+
         $this->price = $price;
     }
 
@@ -68,6 +80,10 @@ class Product
 
     public function changeDescription(Description $description): void
     {
+        if ($this->description->equalTo($description)) {
+            return;
+        }
+
         $this->description = $description;
     }
 
