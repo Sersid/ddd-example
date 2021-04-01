@@ -32,10 +32,10 @@ class Product implements AggregateRoot
 
     public static function create(Code $code, Name $name, BrandId $brandId, Price $price, Description $description): self
     {
-        $self = new self($code, $name, $brandId, $price, $description);
-        $self->recordEvent(new ProductCreatedEvent($self));
+        $product = new self($code, $name, $brandId, $price, $description);
+        $product->recordEvent(new ProductCreatedEvent($product));
 
-        return $self;
+        return $product;
     }
 
     public function getId(): Id
