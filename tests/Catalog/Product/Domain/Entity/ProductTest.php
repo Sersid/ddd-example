@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
+use App\Catalog\Product\Domain\Dto\ProductDto;
 use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Code;
 use App\Catalog\Product\Domain\Entity\Description;
@@ -18,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class ProductTest extends TestCase
 {
     /**
-     * @dataProvider additionProvider
+     * @dataProvider additionCreateProvider
      *
      * @param int         $code
      * @param string      $name
@@ -47,7 +48,7 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(ProductCreatedEvent::class, $events[0]);
     }
 
-    public function additionProvider(): array
+    public function additionCreateProvider(): array
     {
         return [
             [100001, 'Product name #1', 1, 10, null],
@@ -57,15 +58,56 @@ class ProductTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider additionRestoreProvider
+     *
+     * @param int         $id
+     * @param int         $code
+     * @param string      $name
+     * @param int|null    $brandId
+     * @param float       $price
+     * @param string|null $description
+     */
+    public function testRestore(int $id, int $code, string $name, ?int $brandId, float $price, ?string $description)
+    {
+        $dto = new ProductDto();
+        $dto->id = $id;
+        $dto->code = $code;
+        $dto->name = $name;
+        $dto->brandId = $brandId;
+        $dto->price = $price;
+        $dto->description = $description;
+
+        $product = Product::restore($dto);
+        $this->assertSame($dto->id, $product->getId()->getValue());
+        $this->assertSame($dto->code, $product->getCode()->getValue());
+        $this->assertSame($dto->name, $product->getName()->getValue());
+        $this->assertSame($dto->brandId, $product->getBrandId()->getValue());
+        $this->assertSame($dto->price, $product->getPrice()->getValue());
+        $this->assertSame($dto->description, $product->getDescription()->getValue());
+    }
+
+    public function additionRestoreProvider(): array
+    {
+        return [
+            [1, 100001, 'Product name #1', 1, 10, null],
+            [3, 100002, 'Product name #2', null, 20, null],
+            [100, 100003, 'Product name #3', 1, 30, null],
+            [101, 100003, 'Product name #1', 3, 40, 'Product description #4'],
+        ];
+    }
+
     public function testUpdate()
     {
-        $product = new Product(
-            new Code(123456),
-            new Name('Old name'),
-            new BrandId(10),
-            new Price(123),
-            new Description(null)
-        );
+        $dto = new ProductDto();
+        $dto->id = 1234;
+        $dto->code = 123456;
+        $dto->name = 'Old name';
+        $dto->brandId = 10;
+        $dto->price = 100500;
+        $dto->description = null;
+
+        $product = Product::restore($dto);
 
         $product->rename($name = new Name('New name'));
         $product->changeBrandId($brandId = new BrandId(null));

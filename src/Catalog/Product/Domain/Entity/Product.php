@@ -26,8 +26,13 @@ class Product implements AggregateRoot
     {
     }
 
-    public static function create(Code $code, Name $name, BrandId $brandId, Price $price, Description $description)
-    {
+    public static function create(
+        Code $code,
+        Name $name,
+        BrandId $brandId,
+        Price $price,
+        Description $description
+    ): self {
         $product = new self();
         $product->code = $code;
         $product->name = $name;
@@ -36,6 +41,8 @@ class Product implements AggregateRoot
         $product->description = $description;
 
         $product->recordEvent(new ProductCreatedEvent($product));
+
+        return $product;
     }
 
     // load, open, fromDto and etc
