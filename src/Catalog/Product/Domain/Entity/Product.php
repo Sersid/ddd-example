@@ -3,8 +3,17 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-class Product
+use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
+use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
+use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
+use App\Catalog\Product\Domain\Event\ProductRenamedEvent;
+use App\Kernel\Domain\Event\AggregateRoot;
+use App\Kernel\Domain\Event\EventTrait;
+
+class Product implements AggregateRoot
 {
+    use EventTrait;
+
     private Id $id;
     private Code $code;
     private Name $name;
@@ -19,6 +28,8 @@ class Product
         $this->brandId = $brandId;
         $this->price = $price;
         $this->description = $description;
+        
+        $this->recordEvent(new ProductCreatedEvent($this));
     }
 
     public function getId(): Id
@@ -41,7 +52,7 @@ class Product
         if ($this->name->equalTo($name)) {
             return;
         }
-
+        $this->recordEvent(new ProductRenamedEvent($this, $this->name));
         $this->name = $name;
     }
 
@@ -55,7 +66,7 @@ class Product
         if ($this->brandId->equalTo($brand)) {
             return;
         }
-
+        $this->recordEvent(new ProductChangedBrandIdEvent($this, $this->brandId));
         $this->brandId = $brand;
     }
 
@@ -69,7 +80,7 @@ class Product
         if ($this->price->equalTo($price)) {
             return;
         }
-
+        $this->recordEvent(new ProductChangedPriceEvent($this, $this->price));
         $this->price = $price;
     }
 

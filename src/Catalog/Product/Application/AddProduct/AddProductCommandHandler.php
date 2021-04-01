@@ -10,15 +10,18 @@ use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
+use App\Kernel\Domain\Event\EventDispatcher;
 
 class AddProductCommandHandler
 {
     private IProductRepository $productRepository;
     private Product $product;
+    private EventDispatcher $eventDispatcher;
 
-    public function __construct(IProductRepository $productRepository)
+    public function __construct(IProductRepository $productRepository, EventDispatcher $eventDispatcher)
     {
         $this->productRepository = $productRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handle(AddProductCommand $command): void
@@ -31,6 +34,8 @@ class AddProductCommandHandler
 
         $this->product = new Product($code, $name, $brandId, $price, $description);
         $this->productRepository->add($this->product);
+
+        $this->eventDispatcher->dispatch($this->product->releaseEvents());
     }
 
     public function getProduct(): Product
