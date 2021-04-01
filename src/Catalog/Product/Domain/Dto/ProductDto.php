@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Dto;
 
-class ProductDto
+use App\Kernel\Domain\Dto\Dto;
+
+class ProductDto extends Dto
 {
     public int $id;
     public int $code;
