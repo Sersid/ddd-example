@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 interface IProductRepository
 {
@@ -13,7 +13,7 @@ interface IProductRepository
      * @param ProductId $id
      *
      * @return Product
-     * @throws ProductNotFound
+     * @throws ProductNotFoundException
      */
     public function getById(ProductId $id): Product;
 

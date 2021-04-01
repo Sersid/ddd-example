@@ -10,7 +10,7 @@ use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\ProductName;
 use App\Catalog\Product\Domain\Entity\ProductPrice;
 use App\Catalog\Product\Domain\Entity\Product;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use App\Kernel\Domain\Event\EventDispatcher;
 
 class UpdateProductCommandHandler
@@ -28,7 +28,8 @@ class UpdateProductCommandHandler
 
     /**
      * @param UpdateProductCommand $command
-     * @throws ProductNotFound
+     *
+     * @throws ProductNotFoundException
      */
     public function handle(UpdateProductCommand $command): void
     {
@@ -54,7 +55,7 @@ class UpdateProductCommandHandler
     {
         return $this->product;
     }
-    
+
     public function getEvents(): array
     {
         return $this->events;

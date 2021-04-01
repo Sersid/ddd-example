@@ -6,7 +6,7 @@ namespace App\Catalog\Product\Infrastructure\Persistence;
 use App\Catalog\Product\Domain\Entity\ProductId;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Product;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 class BitrixProductRepository implements IProductRepository
 {
@@ -19,7 +19,7 @@ class BitrixProductRepository implements IProductRepository
      * @param ProductId $id
      *
      * @return Product
-     * @throws ProductNotFound
+     * @throws ProductNotFoundException
      */
     public function getById(ProductId $id): Product
     {
