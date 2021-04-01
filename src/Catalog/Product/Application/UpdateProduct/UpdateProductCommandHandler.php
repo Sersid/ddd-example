@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\UpdateProduct;
 
-use App\Catalog\Product\Domain\Entity\Brand;
+use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
@@ -30,13 +30,13 @@ class UpdateProductCommandHandler
     {
         $id = new Id($command->id);
         $name = new Name($command->name);
-        $brand = new Brand($command->brand);
+        $brandId = new BrandId($command->brandId);
         $price = new Price($command->price);
         $description = new Description($command->description);
 
         $this->product = $this->productRepository->getById($id);
         $this->product->rename($name);
-        $this->product->changeBrand($brand);
+        $this->product->changeBrandId($brandId);
         $this->product->changePrice($price);
         $this->product->changeDescription($description);
 

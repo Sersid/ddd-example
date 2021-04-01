@@ -7,7 +7,7 @@ class AddProductCommand
 {
     public int $code;
     public string $name;
-    public string $brand;
+    public ?int $brandId;
     public float $price;
     public ?string $description;
 }

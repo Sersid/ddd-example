@@ -20,7 +20,7 @@ class UpdateProductCommandHandlerTest extends TestCase
         $this->assertSame($product->getId()->getValue(), $command->id);
         $this->assertSame($product->getName()->getValue(), $command->name);
         $this->assertSame($product->getPrice()->getValue(), $command->price);
-        $this->assertSame($product->getBrand()->getValue(), $command->brand);
+        $this->assertSame($product->getBrandId()->getValue(), $command->brandId);
         $this->assertSame($product->getDescription()->getValue(), $command->description);
     }
 
@@ -30,7 +30,7 @@ class UpdateProductCommandHandlerTest extends TestCase
         $command->id = 1;
         $command->name = 'Rename product';
         $command->price = 500100;
-        $command->brand = 'Rename brand name';
+        $command->brandId = 1;
         $command->description = null;
 
         return $command;

@@ -8,15 +8,15 @@ class Product
     private Id $id;
     private Code $code;
     private Name $name;
-    private Brand $brand;
+    private BrandId $brandId;
     private Price $price;
     private Description $description;
 
-    public function __construct(Code $code, Name $name, Brand $brand, Price $price, Description $description)
+    public function __construct(Code $code, Name $name, BrandId $brandId, Price $price, Description $description)
     {
         $this->code = $code;
         $this->name = $name;
-        $this->brand = $brand;
+        $this->brandId = $brandId;
         $this->price = $price;
         $this->description = $description;
     }
@@ -45,18 +45,18 @@ class Product
         $this->name = $name;
     }
 
-    public function getBrand(): Brand
+    public function getBrandId(): BrandId
     {
-        return $this->brand;
+        return $this->brandId;
     }
 
-    public function changeBrand(Brand $brand): void
+    public function changeBrandId(BrandId $brand): void
     {
-        if ($this->brand->equalTo($brand)) {
+        if ($this->brandId->equalTo($brand)) {
             return;
         }
 
-        $this->brand = $brand;
+        $this->brandId = $brand;
     }
 
     public function getPrice(): Price
