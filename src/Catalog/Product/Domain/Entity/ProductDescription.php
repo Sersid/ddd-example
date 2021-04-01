@@ -6,7 +6,7 @@ namespace App\Catalog\Product\Domain\Entity;
 use App\Kernel\Domain\Entity\ValueObject\String\StringNullableValueObject;
 use Webmozart\Assert\Assert;
 
-class Description extends StringNullableValueObject
+class ProductDescription extends StringNullableValueObject
 {
     public function __construct(?string $value)
     {

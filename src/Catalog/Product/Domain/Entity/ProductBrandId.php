@@ -5,6 +5,6 @@ namespace App\Catalog\Product\Domain\Entity;
 
 use App\Kernel\Domain\Entity\ValueObject\Id\IdNullableValueObject;
 
-class BrandId extends IdNullableValueObject
+class ProductBrandId extends IdNullableValueObject
 {
 }

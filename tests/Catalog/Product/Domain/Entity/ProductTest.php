@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Tests\Catalog\Product\Domain\Entity;
 
 use App\Catalog\Product\Domain\Dto\ProductDto;
-use App\Catalog\Product\Domain\Entity\BrandId;
-use App\Catalog\Product\Domain\Entity\Code;
-use App\Catalog\Product\Domain\Entity\Description;
-use App\Catalog\Product\Domain\Entity\Name;
-use App\Catalog\Product\Domain\Entity\Price;
+use App\Catalog\Product\Domain\Entity\ProductBrandId;
+use App\Catalog\Product\Domain\Entity\ProductCode;
+use App\Catalog\Product\Domain\Entity\ProductDescription;
+use App\Catalog\Product\Domain\Entity\ProductName;
+use App\Catalog\Product\Domain\Entity\ProductPrice;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
 use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
@@ -29,11 +29,11 @@ class ProductTest extends TestCase
      */
     public function testCreate(int $code, string $name, ?int $brandId, float $price, ?string $description)
     {
-        $code = new Code($code);
-        $name = new Name($name);
-        $brandId = new BrandId($brandId);
-        $price = new Price($price);
-        $description = new Description($description);
+        $code = new ProductCode($code);
+        $name = new ProductName($name);
+        $brandId = new ProductBrandId($brandId);
+        $price = new ProductPrice($price);
+        $description = new ProductDescription($description);
 
         $product = Product::create($code, $name, $brandId, $price, $description);
 
@@ -109,10 +109,10 @@ class ProductTest extends TestCase
 
         $product = Product::restore($dto);
 
-        $product->rename($name = new Name('New name'));
-        $product->changeBrandId($brandId = new BrandId(null));
-        $product->changePrice($price = new Price(1000.10));
-        $product->changeDescription($description = new Description('New description'));
+        $product->rename($name = new ProductName('New name'));
+        $product->changeBrandId($brandId = new ProductBrandId(null));
+        $product->changePrice($price = new ProductPrice(1000.10));
+        $product->changeDescription($description = new ProductDescription('New description'));
 
         $this->assertSame($name, $product->getName());
         $this->assertSame($brandId, $product->getBrandId());

@@ -10,14 +10,14 @@ interface IProductRepository
     public function add(Product $product): void;
 
     /**
-     * @param Id $id
+     * @param ProductId $id
      *
      * @return Product
      * @throws ProductNotFound
      */
-    public function getById(Id $id): Product;
+    public function getById(ProductId $id): Product;
 
     public function update(Product $product): void;
 
-    public function delete(Id $id): void;
+    public function delete(ProductId $id): void;
 }
