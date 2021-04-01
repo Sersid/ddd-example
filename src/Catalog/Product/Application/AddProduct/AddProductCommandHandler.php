@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\AddProduct;
 
-use App\Catalog\Product\Domain\Entity\ProductBrandId;
-use App\Catalog\Product\Domain\Entity\ProductCode;
-use App\Catalog\Product\Domain\Entity\ProductDescription;
+use App\Catalog\Product\Domain\Entity\BrandId;
+use App\Catalog\Product\Domain\Entity\Code;
+use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
-use App\Catalog\Product\Domain\Entity\ProductName;
-use App\Catalog\Product\Domain\Entity\ProductPrice;
+use App\Catalog\Product\Domain\Entity\Name;
+use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Kernel\Domain\Event\EventDispatcher;
 
@@ -27,11 +27,11 @@ class AddProductCommandHandler
 
     public function handle(AddProductCommand $command): void
     {
-        $code = new ProductCode($command->code);
-        $name = new ProductName($command->name);
-        $brandId = new ProductBrandId($command->brandId);
-        $price = new ProductPrice($command->price);
-        $description = new ProductDescription($command->description);
+        $code = new Code($command->code);
+        $name = new Name($command->name);
+        $brandId = new BrandId($command->brandId);
+        $price = new Price($command->price);
+        $description = new Description($command->description);
 
         $this->product = Product::create($code, $name, $brandId, $price, $description);
         $this->productRepository->add($this->product);

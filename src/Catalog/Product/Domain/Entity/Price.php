@@ -6,7 +6,7 @@ namespace App\Catalog\Product\Domain\Entity;
 use App\Kernel\Domain\Entity\ValueObject\Float\FloatValueObject;
 use Webmozart\Assert\Assert;
 
-class ProductPrice extends FloatValueObject
+class Price extends FloatValueObject
 {
     public function __construct(float $value)
     {

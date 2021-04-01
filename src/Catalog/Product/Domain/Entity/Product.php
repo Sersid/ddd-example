@@ -15,23 +15,23 @@ class Product implements AggregateRoot
 {
     use EventTrait;
 
-    private ProductId $id;
-    private ProductCode $code;
-    private ProductName $name;
-    private ProductBrandId $brandId;
-    private ProductPrice $price;
-    private ProductDescription $description;
+    private Id $id;
+    private Code $code;
+    private Name $name;
+    private BrandId $brandId;
+    private Price $price;
+    private Description $description;
 
     private function __construct()
     {
     }
 
     public static function create(
-        ProductCode $code,
-        ProductName $name,
-        ProductBrandId $brandId,
-        ProductPrice $price,
-        ProductDescription $description
+        Code $code,
+        Name $name,
+        BrandId $brandId,
+        Price $price,
+        Description $description
     ): self {
         $product = new self();
         $product->code = $code;
@@ -49,32 +49,32 @@ class Product implements AggregateRoot
     public static function restore(ProductDto $dto): self
     {
         $product = new self();
-        $product->id = new ProductId($dto->id);
-        $product->code = new ProductCode($dto->code);
-        $product->name = new ProductName($dto->name);
-        $product->brandId = new ProductBrandId($dto->brandId);
-        $product->price = new ProductPrice($dto->price);
-        $product->description = new ProductDescription($dto->description);
+        $product->id = new Id($dto->id);
+        $product->code = new Code($dto->code);
+        $product->name = new Name($dto->name);
+        $product->brandId = new BrandId($dto->brandId);
+        $product->price = new Price($dto->price);
+        $product->description = new Description($dto->description);
 
         return $product;
     }
 
-    public function getId(): ProductId
+    public function getId(): Id
     {
         return $this->id;
     }
 
-    public function getCode(): ProductCode
+    public function getCode(): Code
     {
         return $this->code;
     }
 
-    public function getName(): ProductName
+    public function getName(): Name
     {
         return $this->name;
     }
 
-    public function rename(ProductName $name): void
+    public function rename(Name $name): void
     {
         if ($this->name->isNotEqual($name)) {
             $this->recordEvent(new ProductRenamedEvent($this, $this->name->getValue()));
@@ -82,12 +82,12 @@ class Product implements AggregateRoot
         }
     }
 
-    public function getBrandId(): ProductBrandId
+    public function getBrandId(): BrandId
     {
         return $this->brandId;
     }
 
-    public function changeBrandId(ProductBrandId $brand): void
+    public function changeBrandId(BrandId $brand): void
     {
         if ($this->brandId->isNotEqual($brand)) {
             $this->recordEvent(new ProductChangedBrandIdEvent($this, $this->brandId->getValue()));
@@ -95,12 +95,12 @@ class Product implements AggregateRoot
         }
     }
 
-    public function getPrice(): ProductPrice
+    public function getPrice(): Price
     {
         return $this->price;
     }
 
-    public function changePrice(ProductPrice $price): void
+    public function changePrice(Price $price): void
     {
         if ($this->price->isNotEqual($price)) {
             $this->recordEvent(new ProductChangedPriceEvent($this, $this->price->getValue()));
@@ -108,12 +108,12 @@ class Product implements AggregateRoot
         }
     }
 
-    public function getDescription(): ProductDescription
+    public function getDescription(): Description
     {
         return $this->description;
     }
 
-    public function changeDescription(ProductDescription $description): void
+    public function changeDescription(Description $description): void
     {
         if ($this->description->isNotEqual($description)) {
             $this->description = $description;

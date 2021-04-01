@@ -3,26 +3,26 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
-use App\Catalog\Product\Domain\Entity\ProductId;
+use App\Catalog\Product\Domain\Entity\Price;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class ProductIdTest extends TestCase
+class PriceTest extends TestCase
 {
     public function validAdditionProvider(): array
     {
-        return [[1], [5], [123], [10000], [111111]];
+        return [[0.01], [25], [100500.100500]];
     }
 
     /**
      * @dataProvider validAdditionProvider
      *
-     * @param int $value
+     * @param mixed $value
      */
-    public function testValid(int $value)
+    public function testValid($value)
     {
-        $code = new ProductId($value);
-        $this->assertSame($code->getValue(), $value);
+        $code = new Price($value);
+        $this->assertSame($code->getValue(), (float)$value);
     }
 
     public function invalidAdditionProvider(): array
@@ -33,11 +33,11 @@ class ProductIdTest extends TestCase
     /**
      * @dataProvider invalidAdditionProvider
      *
-     * @param int $value
+     * @param mixed $value
      */
-    public function testInvalid(int $value)
+    public function testInvalid($value)
     {
         $this->expectException(InvalidArgumentException::class);
-        $id = new ProductId($value);
+        new Price($value);
     }
 }

@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Infrastructure\Persistence;
 
-use App\Catalog\Product\Domain\Entity\ProductBrandId;
-use App\Catalog\Product\Domain\Entity\ProductCode;
-use App\Catalog\Product\Domain\Entity\ProductDescription;
-use App\Catalog\Product\Domain\Entity\ProductId;
+use App\Catalog\Product\Domain\Entity\BrandId;
+use App\Catalog\Product\Domain\Entity\Code;
+use App\Catalog\Product\Domain\Entity\Description;
+use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
-use App\Catalog\Product\Domain\Entity\ProductName;
-use App\Catalog\Product\Domain\Entity\ProductPrice;
+use App\Catalog\Product\Domain\Entity\Name;
+use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use App\Kernel\Hydrator;
@@ -27,20 +27,20 @@ class InMemoryProductRepository implements IProductRepository
         $this->id = 1;
         self::$arProducts = [
             $hydrator->hydrate(Product::class, [
-                'id' => new ProductId($this->id++),
-                'code' => new ProductCode(100001),
-                'name' => new ProductName('Product name #100001'),
-                'brandId' => new ProductBrandId(5),
-                'price' => new ProductPrice(100500),
-                'description' => new ProductDescription(null),
+                'id' => new Id($this->id++),
+                'code' => new Code(100001),
+                'name' => new Name('Product name #100001'),
+                'brandId' => new BrandId(5),
+                'price' => new Price(100500),
+                'description' => new Description(null),
             ]),
             $hydrator->hydrate(Product::class, [
-                'id' => new ProductId($this->id++),
-                'code' => new ProductCode(100002),
-                'name' => new ProductName('Product name #100002'),
-                'brandId' => new ProductBrandId(null),
-                'price' => new ProductPrice(100501),
-                'description' => new ProductDescription('Product description #100002'),
+                'id' => new Id($this->id++),
+                'code' => new Code(100002),
+                'name' => new Name('Product name #100002'),
+                'brandId' => new BrandId(null),
+                'price' => new Price(100501),
+                'description' => new Description('Product description #100002'),
             ]),
         ];
     }
@@ -48,16 +48,16 @@ class InMemoryProductRepository implements IProductRepository
     public function add(Product $product): void
     {
         self::$arProducts[] = $product;
-        $this->hydrator->setPropertyValue($product, 'id', new ProductId($this->id++));
+        $this->hydrator->setPropertyValue($product, 'id', new Id($this->id++));
     }
 
     /**
-     * @param ProductId $id
+     * @param Id $id
      *
      * @return Product
      * @throws ProductNotFoundException
      */
-    public function getById(ProductId $id): Product
+    public function getById(Id $id): Product
     {
         foreach (self::$arProducts as $product) {
             if ($product->getId()->isEqual($id)) {
@@ -71,7 +71,7 @@ class InMemoryProductRepository implements IProductRepository
     {
     }
 
-    public function delete(ProductId $id): void
+    public function delete(Id $id): void
     {
         foreach (self::$arProducts as $key => $product) {
             if ($product->getId()->isEqual($id)) {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\DeleteProduct;
 
-use App\Catalog\Product\Domain\Entity\ProductId;
+use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
 
 class DeleteProductCommandHandler
@@ -17,7 +17,7 @@ class DeleteProductCommandHandler
 
     public function handle(DeleteProductCommand $command)
     {
-        $id = new ProductId($command->id);
+        $id = new Id($command->id);
         $this->productRepository->delete($id);
     }
 }

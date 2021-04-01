@@ -6,7 +6,7 @@ namespace App\Catalog\Product\Domain\Entity;
 use App\Kernel\Domain\Entity\ValueObject\Integer\IntValueObject;
 use Webmozart\Assert\Assert;
 
-class ProductCode extends IntValueObject
+class Code extends IntValueObject
 {
     public function __construct(int $value)
     {
