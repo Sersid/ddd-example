@@ -38,11 +38,9 @@ class Product
 
     public function rename(Name $name): void
     {
-        if ($this->name->equalTo($name)) {
-            return;
+        if (!$this->name->equalTo($name)) {
+            $this->name = $name;
         }
-
-        $this->name = $name;
     }
 
     public function getBrandId(): BrandId
@@ -66,11 +64,9 @@ class Product
 
     public function changePrice(Price $price): void
     {
-        if ($this->price->equalTo($price)) {
-            return;
+        if (!$this->price->equalTo($price)) {
+            $this->price = $price;
         }
-
-        $this->price = $price;
     }
 
     public function getDescription(): Description
@@ -80,11 +76,9 @@ class Product
 
     public function changeDescription(Description $description): void
     {
-        if ($this->description->equalTo($description)) {
-            return;
+        if (!$this->description->equalTo($description)) {
+            $this->description = $description;
         }
-
-        $this->description = $description;
     }
 
     public function isFurniture(): bool
