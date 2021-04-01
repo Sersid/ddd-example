@@ -28,7 +28,7 @@ class Product implements AggregateRoot
         $this->brandId = $brandId;
         $this->price = $price;
         $this->description = $description;
-        
+
         $this->recordEvent(new ProductCreatedEvent($this));
     }
 
@@ -91,11 +91,9 @@ class Product implements AggregateRoot
 
     public function changeDescription(Description $description): void
     {
-        if ($this->description->equalTo($description)) {
-            return;
+        if (!$this->description->equalTo($description)) {
+            $this->description = $description;
         }
-
-        $this->description = $description;
     }
 
     public function isFurniture(): bool
