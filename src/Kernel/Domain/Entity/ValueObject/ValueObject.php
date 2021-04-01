@@ -5,16 +5,21 @@ namespace App\Kernel\Domain\Entity\ValueObject;
 
 abstract class ValueObject
 {
-    abstract function getValue();
+    abstract public function getValue();
 
     public function __toString(): string
     {
         return (string)$this->getValue();
     }
 
-    public function equalTo(self $other): bool
+    public function isEqual(self $other): bool
     {
         return $this->getValue() === $other->getValue();
+    }
+
+    public function isNotEqual(self $other): bool
+    {
+        return $this->isEqual($other) === false;
     }
 
     public function isNull(): bool

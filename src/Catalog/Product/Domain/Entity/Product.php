@@ -38,7 +38,7 @@ class Product
 
     public function rename(Name $name): void
     {
-        if (!$this->name->equalTo($name)) {
+        if ($this->name->isNotEqual($name)) {
             $this->name = $name;
         }
     }
@@ -50,7 +50,7 @@ class Product
 
     public function changeBrandId(BrandId $brand): void
     {
-        if (!$this->brandId->equalTo($brand)) {
+        if ($this->brandId->isNotEqual($brand)) {
             $this->brandId = $brand;
         }
     }
@@ -62,7 +62,7 @@ class Product
 
     public function changePrice(Price $price): void
     {
-        if (!$this->price->equalTo($price)) {
+        if ($this->price->isNotEqual($price)) {
             $this->price = $price;
         }
     }
@@ -74,7 +74,7 @@ class Product
 
     public function changeDescription(Description $description): void
     {
-        if (!$this->description->equalTo($description)) {
+        if ($this->description->isNotEqual($description)) {
             $this->description = $description;
         }
     }
