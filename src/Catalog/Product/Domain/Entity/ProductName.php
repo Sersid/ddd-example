@@ -6,7 +6,7 @@ namespace App\Catalog\Product\Domain\Entity;
 use App\Kernel\Domain\Entity\ValueObject\String\StringValueObject;
 use Webmozart\Assert\Assert;
 
-class Name extends StringValueObject
+class ProductName extends StringValueObject
 {
     public function __construct(string $value)
     {

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Domain\Entity;
 
-use App\Catalog\Product\Domain\Entity\BrandId;
+use App\Catalog\Product\Domain\Entity\ProductBrandId;
 use PHPUnit\Framework\TestCase;
 
-class BrandIdTest extends TestCase
+class ProductBrandIdTest extends TestCase
 {
     public function validAdditionProvider(): array
     {
@@ -20,7 +20,7 @@ class BrandIdTest extends TestCase
      */
     public function testValid($value)
     {
-        $code = new BrandId($value);
+        $code = new ProductBrandId($value);
         $this->assertSame($code->getValue(), $value);
     }
 }
