@@ -5,6 +5,9 @@ namespace Tests\Catalog\Product\Application\UpdateProduct;
 
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
+use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
+use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
+use App\Catalog\Product\Domain\Event\ProductRenamedEvent;
 use App\Catalog\Product\Domain\Exception\ProductNotFound;
 use Tests\TestCase;
 
@@ -20,8 +23,14 @@ class UpdateProductCommandHandlerTest extends TestCase
         $this->assertSame($product->getId()->getValue(), $command->id);
         $this->assertSame($product->getName()->getValue(), $command->name);
         $this->assertSame($product->getPrice()->getValue(), $command->price);
-        $this->assertSame($product->getBrand()->getValue(), $command->brand);
+        $this->assertSame($product->getBrandId()->getValue(), $command->brandId);
         $this->assertSame($product->getDescription()->getValue(), $command->description);
+
+        $events = $handler->getEvents();
+        $this->assertCount(3, $events);
+        $this->assertInstanceOf(ProductRenamedEvent::class, $events[0]);
+        $this->assertInstanceOf(ProductChangedBrandIdEvent::class, $events[1]);
+        $this->assertInstanceOf(ProductChangedPriceEvent::class, $events[2]);
     }
 
     private function getCommand(): UpdateProductCommand
@@ -30,7 +39,7 @@ class UpdateProductCommandHandlerTest extends TestCase
         $command->id = 1;
         $command->name = 'Rename product';
         $command->price = 500100;
-        $command->brand = 'Rename brand name';
+        $command->brandId = 1;
         $command->description = null;
 
         return $command;

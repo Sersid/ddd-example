@@ -5,7 +5,7 @@ namespace App\Kernel\Domain\Entity\ValueObject;
 
 abstract class ValueObject
 {
-    abstract function getValue();
+    abstract public function getValue();
 
     public function __toString(): string
     {
@@ -17,38 +17,28 @@ abstract class ValueObject
         return $this->getValue() === $other->getValue();
     }
 
+    public function isNotEqual(self $other): bool
+    {
+        return $this->isEqual($other) === false;
+    }
+
     public function isNull(): bool
     {
-        return is_null($this->getValue());
+        return $this->getValue() === null;
     }
 
     public function isNotNull(): bool
     {
-        return !$this->isNull();
+        return $this->isNull() === false;
     }
 
     public function isEmpty(): bool
     {
-        return $this->isNull() || empty($this->getValue());
+        return empty($this->getValue());
     }
 
     public function isNotEmpty(): bool
     {
-        return $this->isNotNull() && !empty($this->getValue());
-    }
-
-    /**
-     * @param callable $handle
-     *
-     * @return static
-     */
-    protected function handler(callable $handle): self
-    {
-        $clone = clone $this;
-        if ($clone->isNotNull()) {
-            $handle($clone);
-        }
-
-        return $clone;
+        return $this->isEmpty() === false;
     }
 }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Application\UpdateProduct;
 
-use App\Catalog\Product\Domain\Entity\Brand;
+use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Id;
 use App\Catalog\Product\Domain\Entity\IProductRepository;
@@ -11,15 +11,19 @@ use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Kernel\Domain\Event\EventDispatcher;
 
 class UpdateProductCommandHandler
 {
     private IProductRepository $productRepository;
     private Product $product;
+    private EventDispatcher $eventDispatcher;
+    private array $events;
 
-    public function __construct(IProductRepository $productRepository)
+    public function __construct(IProductRepository $productRepository, EventDispatcher $eventDispatcher)
     {
         $this->productRepository = $productRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -30,21 +34,29 @@ class UpdateProductCommandHandler
     {
         $id = new Id($command->id);
         $name = new Name($command->name);
-        $brand = new Brand($command->brand);
+        $brandId = new BrandId($command->brandId);
         $price = new Price($command->price);
         $description = new Description($command->description);
 
         $this->product = $this->productRepository->getById($id);
         $this->product->rename($name);
-        $this->product->changeBrand($brand);
+        $this->product->changeBrandId($brandId);
         $this->product->changePrice($price);
         $this->product->changeDescription($description);
 
         $this->productRepository->update($this->product);
+
+        $this->events = $this->product->releaseEvents();
+        $this->eventDispatcher->dispatch($this->events);
     }
 
     public function getProduct(): Product
     {
         return $this->product;
+    }
+    
+    public function getEvents(): array
+    {
+        return $this->events;
     }
 }

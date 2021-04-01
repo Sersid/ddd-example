@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Infrastructure\Persistence;
 
-use App\Catalog\Product\Domain\Entity\Brand;
+use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Code;
 use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Id;
@@ -30,7 +30,7 @@ class InMemoryProductRepository implements IProductRepository
                 'id' => new Id($this->id++),
                 'code' => new Code(100001),
                 'name' => new Name('Product name #100001'),
-                'brand' => new Brand('Brand name'),
+                'brandId' => new BrandId(5),
                 'price' => new Price(100500),
                 'description' => new Description(null),
             ]),
@@ -38,7 +38,7 @@ class InMemoryProductRepository implements IProductRepository
                 'id' => new Id($this->id++),
                 'code' => new Code(100002),
                 'name' => new Name('Product name #100002'),
-                'brand' => new Brand('Brand name'),
+                'brandId' => new BrandId(null),
                 'price' => new Price(100501),
                 'description' => new Description('Product description #100002'),
             ]),

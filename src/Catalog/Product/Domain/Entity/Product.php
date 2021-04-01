@@ -3,22 +3,60 @@ declare(strict_types=1);
 
 namespace App\Catalog\Product\Domain\Entity;
 
-class Product
+use App\Catalog\Product\Domain\Dto\ProductDto;
+use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
+use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
+use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
+use App\Catalog\Product\Domain\Event\ProductRenamedEvent;
+use App\Kernel\Domain\Event\AggregateRoot;
+use App\Kernel\Domain\Event\EventTrait;
+
+class Product implements AggregateRoot
 {
+    use EventTrait;
+
     private Id $id;
     private Code $code;
     private Name $name;
-    private Brand $brand;
+    private BrandId $brandId;
     private Price $price;
     private Description $description;
 
-    public function __construct(Code $code, Name $name, Brand $brand, Price $price, Description $description)
+    private function __construct()
     {
-        $this->code = $code;
-        $this->name = $name;
-        $this->brand = $brand;
-        $this->price = $price;
-        $this->description = $description;
+    }
+
+    public static function create(
+        Code $code,
+        Name $name,
+        BrandId $brandId,
+        Price $price,
+        Description $description
+    ): self {
+        $product = new self();
+        $product->code = $code;
+        $product->name = $name;
+        $product->brandId = $brandId;
+        $product->price = $price;
+        $product->description = $description;
+
+        $product->recordEvent(new ProductCreatedEvent($product));
+
+        return $product;
+    }
+
+    // load, open, fromDto and etc
+    public static function restore(ProductDto $dto): self
+    {
+        $product = new self();
+        $product->id = new Id($dto->id);
+        $product->code = new Code($dto->code);
+        $product->name = new Name($dto->name);
+        $product->brandId = new BrandId($dto->brandId);
+        $product->price = new Price($dto->price);
+        $product->description = new Description($dto->description);
+
+        return $product;
     }
 
     public function getId(): Id
@@ -38,17 +76,23 @@ class Product
 
     public function rename(Name $name): void
     {
-        $this->name = $name;
+        if ($this->name->isNotEqual($name)) {
+            $this->recordEvent(new ProductRenamedEvent($this, $this->name->getValue()));
+            $this->name = $name;
+        }
     }
 
-    public function getBrand(): Brand
+    public function getBrandId(): BrandId
     {
-        return $this->brand;
+        return $this->brandId;
     }
 
-    public function changeBrand(Brand $brand): void
+    public function changeBrandId(BrandId $brand): void
     {
-        $this->brand = $brand;
+        if ($this->brandId->isNotEqual($brand)) {
+            $this->recordEvent(new ProductChangedBrandIdEvent($this, $this->brandId->getValue()));
+            $this->brandId = $brand;
+        }
     }
 
     public function getPrice(): Price
@@ -58,7 +102,10 @@ class Product
 
     public function changePrice(Price $price): void
     {
-        $this->price = $price;
+        if ($this->price->isNotEqual($price)) {
+            $this->recordEvent(new ProductChangedPriceEvent($this, $this->price->getValue()));
+            $this->price = $price;
+        }
     }
 
     public function getDescription(): Description
@@ -68,7 +115,9 @@ class Product
 
     public function changeDescription(Description $description): void
     {
-        $this->description = $description;
+        if ($this->description->isNotEqual($description)) {
+            $this->description = $description;
+        }
     }
 
     public function isFurniture(): bool

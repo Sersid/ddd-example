@@ -1,17 +1,24 @@
 <?php
 declare(strict_types=1);
 
-use App\Catalog\Product\Domain\Entity\Product;
+/** @var ProductView $product */
 
-/** @var Product $product */
+use App\Catalog\Product\Domain\ReadModel\ProductView;
+
 ?>
-<div>
-    <h1><?= $product->getName()->toUpper()->htmlEntities() ?></h1>
+<h1><?= $product->name() ?></h1>
+<p><a href="<?= $product->url() ?>"><?= $product->code() ?></a></p>
+<?php if ($product->hasDescription()) { ?>
     <div>
-        <p>Наименование: <?= $product->getName() ?></p>
-        <p>Цена: <?= $product->getPrice()->getFormatted() ?></p>
-        <?php if ($product->getDescription()->isNotEmpty()) { ?>
-        <p>Описание: <?= $product->getDescription()->htmlEntities() ?></p>
-        <?php } ?>
+        <h4>Описание</h4>
+        <p><?= $product->description() ?></p>
     </div>
-</div>
+<?php } ?>
+<?php if ($product->hasBrand()) { ?>
+    <div>
+        <h4>Бренд</h4>
+        <p>
+            <a href="<?= $product->brand()->url() ?>"><?= $product->brand()->name() ?></a>
+        </p>
+    </div>
+<?php } ?>

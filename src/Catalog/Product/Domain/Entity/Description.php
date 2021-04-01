@@ -10,10 +10,10 @@ class Description extends StringNullableValueObject
 {
     public function __construct(?string $value)
     {
-        parent::__construct($value);
-        if ($this->isNotNull()) {
-            $this->value = $this->trim()->getValue();
-            Assert::notEmpty($this->value);
+        if (!is_null($value)) {
+            $value = trim($value);
+            Assert::notEmpty($value);
         }
+        parent::__construct($value);
     }
 }

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Kernel\Domain\Entity\ValueObject\String;
 
-abstract class StringValueObject extends BaseStringValueObject
+use App\Kernel\Domain\Entity\ValueObject\ValueObject;
+
+abstract class StringValueObject extends ValueObject
 {
     protected string $value;
 
