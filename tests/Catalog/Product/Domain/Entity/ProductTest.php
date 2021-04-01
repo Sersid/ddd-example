@@ -9,6 +9,10 @@ use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
+use App\Catalog\Product\Domain\Event\ProductChangedBrandIdEvent;
+use App\Catalog\Product\Domain\Event\ProductChangedPriceEvent;
+use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
+use App\Catalog\Product\Domain\Event\ProductRenamedEvent;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
@@ -30,13 +34,17 @@ class ProductTest extends TestCase
         $price = new Price($price);
         $description = new Description($description);
 
-        $product = new Product($code, $name, $brandId, $price, $description);
+        $product = Product::create($code, $name, $brandId, $price, $description);
 
         $this->assertSame($code, $product->getCode());
         $this->assertSame($name, $product->getName());
         $this->assertSame($brandId, $product->getBrandId());
         $this->assertSame($price, $product->getPrice());
         $this->assertSame($description, $product->getDescription());
+
+        $events = $product->releaseEvents();
+        $this->assertCount(1, $events);
+        $this->assertInstanceOf(ProductCreatedEvent::class, $events[0]);
     }
 
     public function additionProvider(): array
@@ -68,5 +76,11 @@ class ProductTest extends TestCase
         $this->assertSame($brandId, $product->getBrandId());
         $this->assertSame($price, $product->getPrice());
         $this->assertSame($description, $product->getDescription());
+
+        $events = $product->releaseEvents();
+        $this->assertCount(3, $events);
+        $this->assertInstanceOf(ProductRenamedEvent::class, $events[0]);
+        $this->assertInstanceOf(ProductChangedBrandIdEvent::class, $events[1]);
+        $this->assertInstanceOf(ProductChangedPriceEvent::class, $events[2]);
     }
 }

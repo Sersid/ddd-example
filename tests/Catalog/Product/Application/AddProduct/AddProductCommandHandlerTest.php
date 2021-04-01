@@ -5,6 +5,7 @@ namespace Tests\Catalog\Product\Application\AddProduct;
 
 use App\Catalog\Product\Application\AddProduct\AddProductCommand;
 use App\Catalog\Product\Application\AddProduct\AddProductCommandHandler;
+use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
 use Tests\TestCase;
 
 class AddProductCommandHandlerTest extends TestCase
@@ -30,5 +31,10 @@ class AddProductCommandHandlerTest extends TestCase
         $this->assertSame($product->getPrice()->getValue(), $command->price);
         $this->assertSame($product->getBrandId()->getValue(), $command->brandId);
         $this->assertSame($product->getDescription()->getValue(), $command->description);
+
+        $events = $handler->getEvents();
+
+        $this->assertCount(1, $events);
+        $this->assertInstanceOf(ProductCreatedEvent::class, $events[0]);
     }
 }
