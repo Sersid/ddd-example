@@ -39,12 +39,12 @@ class ProductView
 
     public function url(): string
     {
-        return '/zakaz/index.php?CODE=' . $this->code();
+        return '/zakaz/' . $this->code() . '/';
     }
 
     public function hasBrand(): bool
     {
-        return $this->brand === null;
+        return $this->brand !== null;
     }
 
     public function brand(): BrandView
