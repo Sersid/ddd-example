@@ -5,7 +5,7 @@ namespace Tests\Catalog\Product\Application\UpdateProduct;
 
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
 use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use Tests\TestCase;
 
 class UpdateProductCommandHandlerTest extends TestCase
@@ -49,7 +49,7 @@ class UpdateProductCommandHandlerTest extends TestCase
     {
         $command = $this->getCommand();
         $command->id = 100000000000;
-        $this->expectException(ProductNotFound::class);
+        $this->expectException(ProductNotFoundException::class);
         $this->getHandler($command);
     }
 }

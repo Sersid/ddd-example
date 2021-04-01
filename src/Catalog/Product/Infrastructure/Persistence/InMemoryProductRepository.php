@@ -11,7 +11,7 @@ use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use App\Kernel\Hydrator;
 
 class InMemoryProductRepository implements IProductRepository
@@ -55,7 +55,7 @@ class InMemoryProductRepository implements IProductRepository
      * @param Id $id
      *
      * @return Product
-     * @throws ProductNotFound
+     * @throws ProductNotFoundException
      */
     public function getById(Id $id): Product
     {
@@ -64,7 +64,7 @@ class InMemoryProductRepository implements IProductRepository
                 return $product;
             }
         }
-        throw new ProductNotFound();
+        throw new ProductNotFoundException();
     }
 
     public function update(Product $product): void

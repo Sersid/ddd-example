@@ -10,7 +10,7 @@ use App\Catalog\Product\Domain\Entity\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
-use App\Catalog\Product\Domain\Exception\ProductNotFound;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 class UpdateProductCommandHandler
 {
@@ -24,7 +24,8 @@ class UpdateProductCommandHandler
 
     /**
      * @param UpdateProductCommand $command
-     * @throws ProductNotFound
+     *
+     * @throws ProductNotFoundException
      */
     public function handle(UpdateProductCommand $command): void
     {
