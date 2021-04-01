@@ -5,7 +5,7 @@ namespace App\Catalog\Brand\Domain\Entity;
 
 use App\Catalog\Brand\Domain\Dto\BrandDto;
 
-class Brand
+final class Brand
 {
     private Id $id;
     private Name $name;

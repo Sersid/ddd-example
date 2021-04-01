@@ -11,7 +11,7 @@ use App\Catalog\Product\Domain\Event\ProductRenamedEvent;
 use App\Kernel\Domain\Event\AggregateRoot;
 use App\Kernel\Domain\Event\EventTrait;
 
-class Product implements AggregateRoot
+final class Product implements AggregateRoot
 {
     use EventTrait;
 
