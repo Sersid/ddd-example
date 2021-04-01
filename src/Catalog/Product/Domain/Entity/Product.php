@@ -50,11 +50,9 @@ class Product
 
     public function changeBrandId(BrandId $brand): void
     {
-        if ($this->brandId->equalTo($brand)) {
-            return;
+        if (!$this->brandId->equalTo($brand)) {
+            $this->brandId = $brand;
         }
-
-        $this->brandId = $brand;
     }
 
     public function getPrice(): Price
