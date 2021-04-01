@@ -10,8 +10,9 @@ class Name extends StringValueObject
 {
     public function __construct(string $value)
     {
+        $value = trim($value);
+        Assert::notEmpty($value);
+        Assert::maxLength($value, 255);
         parent::__construct($value);
-        Assert::notEmpty($this->value);
-        Assert::maxLength($this->value, 255);
     }
 }
