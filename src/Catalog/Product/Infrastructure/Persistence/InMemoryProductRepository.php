@@ -60,7 +60,7 @@ class InMemoryProductRepository implements IProductRepository
     public function getById(Id $id): Product
     {
         foreach (self::$arProducts as $product) {
-            if ($product->getId()->equalTo($id)) {
+            if ($product->getId()->isEqual($id)) {
                 return $product;
             }
         }
@@ -74,7 +74,7 @@ class InMemoryProductRepository implements IProductRepository
     public function delete(Id $id): void
     {
         foreach (self::$arProducts as $key => $product) {
-            if ($product->getId()->equalTo($id)) {
+            if ($product->getId()->isEqual($id)) {
                 unset(self::$arProducts[$key]);
             }
         }
