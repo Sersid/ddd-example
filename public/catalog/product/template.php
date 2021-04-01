@@ -7,9 +7,7 @@ use App\Catalog\Product\Domain\ReadModel\ProductView;
 
 ?>
 <h1><?= $product->name() ?></h1>
-<p>
-    <a href="<?= $product->url() ?>"><?= $product->code() ?></a>
-</p>
+<p><a href="<?= $product->url() ?>"><?= $product->code() ?></a></p>
 <?php if ($product->hasDescription()) { ?>
     <div>
         <h4>Описание</h4>
