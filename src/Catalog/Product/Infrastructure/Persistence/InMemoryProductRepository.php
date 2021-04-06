@@ -7,11 +7,12 @@ use App\Catalog\Product\Domain\Entity\BrandId;
 use App\Catalog\Product\Domain\Entity\Code;
 use App\Catalog\Product\Domain\Entity\Description;
 use App\Catalog\Product\Domain\Entity\Id;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
 use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
+use App\Catalog\Product\Domain\ReadModel\ProductViewCollection;
 use App\Kernel\Hydrator;
 
 class InMemoryProductRepository implements IProductRepository
@@ -78,5 +79,10 @@ class InMemoryProductRepository implements IProductRepository
                 unset(self::$arProducts[$key]);
             }
         }
+    }
+
+    public function findCollection(): ProductViewCollection
+    {
+        return new ProductViewCollection([]);
     }
 }

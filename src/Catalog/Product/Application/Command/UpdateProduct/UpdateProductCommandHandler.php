@@ -1,18 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Application\AddProduct;
+namespace App\Catalog\Product\Application\Command\UpdateProduct;
 
 use App\Catalog\Product\Domain\Entity\BrandId;
-use App\Catalog\Product\Domain\Entity\Code;
 use App\Catalog\Product\Domain\Entity\Description;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Entity\Id;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
 use App\Catalog\Product\Domain\Entity\Name;
 use App\Catalog\Product\Domain\Entity\Price;
 use App\Catalog\Product\Domain\Entity\Product;
+use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 use App\Kernel\Domain\Event\EventDispatcher;
 
-class AddProductCommandHandler
+class UpdateProductCommandHandler
 {
     private IProductRepository $productRepository;
     private Product $product;
@@ -25,16 +26,26 @@ class AddProductCommandHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handle(AddProductCommand $command): void
+    /**
+     * @param UpdateProductCommand $command
+     *
+     * @throws ProductNotFoundException
+     */
+    public function handle(UpdateProductCommand $command): void
     {
-        $code = new Code($command->code);
+        $id = new Id($command->id);
         $name = new Name($command->name);
         $brandId = new BrandId($command->brandId);
         $price = new Price($command->price);
         $description = new Description($command->description);
 
-        $this->product = Product::create($code, $name, $brandId, $price, $description);
-        $this->productRepository->add($this->product);
+        $this->product = $this->productRepository->getById($id);
+        $this->product->rename($name);
+        $this->product->changeBrandId($brandId);
+        $this->product->changePrice($price);
+        $this->product->changeDescription($description);
+
+        $this->productRepository->update($this->product);
 
         $this->events = $this->product->releaseEvents();
         $this->eventDispatcher->dispatch($this->events);
@@ -49,21 +60,4 @@ class AddProductCommandHandler
     {
         return $this->events;
     }
-
-    /*
-     public function handle(): void
-     {
-        $_POST || $_GET
-     }
-    */
-    /*
-    public function handle(int $code, string $name, string $brand, float $price, ?string $description): void
-    {
-    }
-    */
-    /*
-    public function handle(array $arData): void
-    {
-    }
-    */
 }

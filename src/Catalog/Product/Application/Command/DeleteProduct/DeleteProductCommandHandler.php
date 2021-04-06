@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Application\DeleteProduct;
+namespace App\Catalog\Product\Application\Command\DeleteProduct;
 
 use App\Catalog\Product\Domain\Entity\Id;
-use App\Catalog\Product\Domain\Entity\IProductRepository;
+use App\Catalog\Product\Domain\Repository\IProductRepository;
 
 class DeleteProductCommandHandler
 {
