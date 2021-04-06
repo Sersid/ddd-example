@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Catalog\Product\Application\AddProduct;
 
-use App\Catalog\Product\Application\AddProduct\AddProductCommand;
-use App\Catalog\Product\Application\AddProduct\AddProductCommandHandler;
+use App\Catalog\Product\Application\Command\AddProduct\AddProductCommand;
+use App\Catalog\Product\Application\Command\AddProduct\AddProductCommandHandler;
 use App\Catalog\Product\Domain\Event\ProductCreatedEvent;
 use Tests\TestCase;
 

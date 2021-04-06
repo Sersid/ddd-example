@@ -6,7 +6,7 @@ namespace App\Kernel\Domain\Entity\ValueObject\Id;
 use App\Kernel\Domain\Entity\ValueObject\Integer\IntNullableValueObject;
 use Webmozart\Assert\Assert;
 
-class IdNullableValueObject extends IntNullableValueObject
+abstract class IdNullableValueObject extends IntNullableValueObject
 {
     public function __construct(?int $value)
     {

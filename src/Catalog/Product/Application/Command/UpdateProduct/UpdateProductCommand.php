@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Catalog\Product\Application\AddProduct;
+namespace App\Catalog\Product\Application\Command\UpdateProduct;
 
-class AddProductCommand
+class UpdateProductCommand
 {
-    public int $code;
+    public int $id;
     public string $name;
+    public string $brand;
     public ?int $brandId;
     public float $price;
     public ?string $description;

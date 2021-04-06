@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommand;
-use App\Catalog\Product\Application\UpdateProduct\UpdateProductCommandHandler;
+use App\Catalog\Product\Application\Command\UpdateProduct\UpdateProductCommand;
+use App\Catalog\Product\Application\Command\UpdateProduct\UpdateProductCommandHandler;
 use App\Catalog\Product\Domain\Exception\ProductNotFoundException;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
